@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+
+  build:
+    commands:
+      - ls -al
+      - find .
+      - sam deploy --template-file build/template.yaml --stack-name circular-area-calculator --s3-bucket circle-area-calculator-artifacts --capabilities CAPABILITY_IAM --region eu-central-1

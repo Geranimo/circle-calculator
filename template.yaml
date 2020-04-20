@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  circle-area-calculator
+
+  Sample SAM Template for circle-area-calculator
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  CircleCalculatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: circle-calculator/
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Events:
+        CircleCalculator:
+          Type: Api
+          Properties:
+            Path: /calculate
+            Method: get
+
+Outputs:
+  CircleCalculatorApi:
+    Description: "API Gateway endpoint URL for CircleCalculator "
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/calculate"
+  CircleCalculatorFunction:
+    Description: "CircleCalculator Lambda Function ARN"
+    Value: !GetAtt CircleCalculatorFunction.Arn
+  CircleCalculatorFunctionIamRole:
+    Description: "CircleCalculator Role created for CircleCalculator function"
+    Value: !GetAtt CircleCalculatorFunctionRole.Arn

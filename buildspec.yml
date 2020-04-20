@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - npm install -g mocha
+  build:
+    commands:
+      - sam build --build-dir build
+      - npm install --prefix circle-calculator
+      - npm run test --prefix circle-calculator
+
+artifacts:
+  files:
+    - build/**/*
+    - buildspec_deploy.yml
